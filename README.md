@@ -8,7 +8,7 @@ The game board consists of 16 "cards" organized in a grid. The deck is made of e
 
 ##### Screenshot
 
-![alt text](https://raw.githubusercontent.com/musaab-abdalla/musaab-abdalla.github.io/master/frontend-nanodegree-memory-game/screenshot.jpg "Memory game")
+![alt text](https://raw.githubusercontent.com/musaab-abdalla/frontend-nanodegree-memory-game/master/screenshot.jpg "Memory game")
 
 ##### Live
 
