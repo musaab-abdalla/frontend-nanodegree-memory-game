@@ -1,0 +1,138 @@
+/*
+* style components for the game
+*/
+
+$primary-color: #02ccba;
+$white-color: #ffffff;
+.deck {
+    /* for-tablet */
+    @media only screen and (min-width: 600px) and (max-width: 765px) {
+        width: 500px;
+        min-height: 500px;
+        padding: 22px;
+        .card {
+            height: 100px;
+            width: 100px;
+        }
+    }
+    /* for phone only portrait */
+    @media only screen and (max-width: 480px) and (min-width: 321px) {
+        width: 350px;
+        min-height: 375px;
+        padding: 22px;
+        .card {
+            height: 70px;
+            width: 70px;
+        }
+    }
+    /* for small phone only portrait */
+    @media only screen and (max-width: 320px) {
+        width: 300px;
+        min-height: 325px;
+        padding: 22px;
+        .card {
+            height: 60px;
+            width: 60px;
+        }
+    }
+    .card.unmatch {
+        background: #f85c3e;
+    }
+}
+
+
+/*
+ * Styles for the Score Panel
+ */
+
+.score-panel {
+    /* change bachground color to score panel */
+    background-color: #2e3d49;
+    border-radius: 5px;
+    color: $white-color;
+    margin-bottom: 10px;
+    padding: 0 10px;
+    text-align: left;
+    width: 345px;
+    line-height: 2;
+    @media only screen and (max-width: 320px) {
+        width: 250px;
+    }
+    @media only screen and (max-width: 480px) and (min-width: 321px) {
+        width: 300px;
+    }
+    .stars {
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+        margin: 0 15px 0 0;
+    }
+    .stars li {
+        list-style: none;
+        display: inline-block;
+        /* add color to stars */
+        color: #ffa000;
+    }
+    .moves {
+        /* add color to count */
+        color: $primary-color;
+        margin: 0 1em;
+        @media only screen and (max-width: 320px) {
+            margin: 0 5px;
+        }
+    }
+    .timer {
+        color: #9e9e9e;
+        margin: 0 1em;
+        @media only screen and (max-width: 320px) {
+            margin: 0 5px;
+        }
+    }
+    .restart {
+        float: right;
+        cursor: pointer;
+        margin: 0 5px 0 0;
+        /* add color to restart btn */
+        color: $primary-color;
+    }
+}
+
+
+/*
+* sweetAlert Style
+*/
+
+.swal-overlay {
+    background-color: $white-color;
+}
+
+.swal2-modal {
+    .swal2-confirm {
+        background-color: $primary-color;
+    }
+    .swal2-confirm:active {
+        background-color: $primary-color;
+    }
+    .swal2-buttonswrapper {
+        text-align: center;
+    }
+}
+
+.swal2-container.swal2-shown {
+    background-color: $white-color !important;
+}
+
+
+/* Orientation Lock credit: https://css-tricks.com/snippets/css/orientation-lock */
+
+@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+    html {
+        transform: rotate(-90deg);
+        transform-origin: left top;
+        width: 100vh;
+        overflow-x: hidden;
+        position: absolute;
+        top: 100%;
+        left: 0;
+    }
+}
