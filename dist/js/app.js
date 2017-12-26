@@ -6,7 +6,7 @@ var symbols = ['diamond', 'paper-plane-o', 'anchor', 'bolt', 'cube', 'leaf', 'bi
     deck = document.querySelector(".deck"),
     theTimer = document.querySelector('.timer'),
     moveCount = document.querySelector('.moves'),
-    restartBtn = document.querySelector('.restart'),
+    restartBtn = document.querySelector('.reset'),
     stars = document.querySelector('.stars'),
     cards = [],
     openCardList = [],
@@ -26,7 +26,8 @@ var symbols = ['diamond', 'paper-plane-o', 'anchor', 'bolt', 'cube', 'leaf', 'bi
 
 
 function displayCards() {
-    cardSymbol = shuffle(cardSymbol);
+    cardSymbol = shuffle(cardSymbol); // shuffling cards
+    // Rendering shuffle cards
     for (var i = 0; i < cardSymbol.length; i++) {
         var card = document.createElement('li');
         card.className = 'card';
@@ -65,10 +66,10 @@ function shuffle(array) {
  */
 
 
-
+// Click Event Listiner
 function setupClicks() {
-    for (var i = 0; i < cards.length; i++) {
-        cards[i].addEventListener('click', handleClicks);
+    for (var i = 0; i < cards.length; i++) { // Grab a card one at a time
+        cards[i].addEventListener('click', handleClicks); // Add click event listener
     }
 
     function handleClicks(e) {
@@ -80,8 +81,8 @@ function setupClicks() {
             }
         }
 
-        var clickedCard = targetClick.classList.contains('open');
-        if (!clickedCard && openCardList.length !== 2) {
+        var clickedCard = targetClick.classList.contains('open'); // Check if the card has already opened
+        if (!clickedCard && openCardList.length !== 2) { // If the card is not opened, maintain to process it.
             displayOpenCard(targetClick);
             setTimeout(function() {
                 checkCardsMatch();
@@ -95,21 +96,33 @@ function setupClicks() {
 
     }
 
+    /**
+     * Funnction to display card symbol
+     * and change css class
+     * @param {any} card
+     */
     function displayOpenCard(card) {
         card.classList.add('open', 'show');
         openCardList.push(card);
     }
-
+    /**
+     * Function to check two opened cards
+     */
     function checkCardsMatch() {
         if (openCardList.length == 2) {
             movesCount();
             var firstCard = openCardList[0];
             var secondCard = openCardList[1];
-            compareCards(firstCard, secondCard);
-            openCardList = [];
+            compareCards(firstCard, secondCard); // compare two clicks cards
+            openCardList = []; // clear openCardList array
         }
     }
-
+    /**
+     * Function to check if two cards match or not
+     * and do appropriate actions.
+     * @param {any} firstCard
+     * @param {any} secondCard
+     */
     function compareCards(firstCard, secondCard) {
         var firstClickedCard = firstCard.children[0].className;
         var secondClickedCard = secondCard.children[0].className;
@@ -118,21 +131,25 @@ function setupClicks() {
             secondCard.classList.remove('open');
             firstCard.classList.add('match', 'animated', 'rubberBand');
             secondCard.classList.add('match', 'animated', 'rubberBand');
-            firstCard.removeEventListener('click', handleClicks);
-            secondCard.removeEventListener('click', handleClicks);
+            firstCard.removeEventListener('click', handleClicks); // remove click event from firstCard
+            secondCard.removeEventListener('click', handleClicks); // remove click event from secondCard
         } else {
             firstCard.classList.remove('open');
             secondCard.classList.remove('open');
             firstCard.classList.add('unmatch', 'animated', 'wobble');
             secondCard.classList.add('unmatch', 'animated', 'wobble');
 
+            // Use setTimeout function to take time for cards to animate before it is hided
             setTimeout(function() {
                 firstCard.classList.remove('unmatch', 'animated', 'wobble', 'show');
                 secondCard.classList.remove('unmatch', 'animated', 'wobble', 'show');
             }, 400);
         }
     }
-
+    /**
+     * Function to check if the game is completed or not
+     * show win screen
+     */
     function completeChecker() {
         var cardList = document.getElementsByClassName('card'),
             isLocked = true;
@@ -146,7 +163,10 @@ function setupClicks() {
             sweetAlert();
         }
     }
-
+    /**
+     * Function to display the win screen
+     * with play again button
+     */
     function sweetAlert() {
         var totalMoves = moveCount.innerHTML,
             totalTime = theTimer.innerHTML,
@@ -162,21 +182,24 @@ function setupClicks() {
             allowOutsideClick: false
         }).then(function() {
             clearInterval(interval);
-            restart();
+            reset();
         });
 
     }
 
     // Move Count start
     function movesCount() {
-        move += 1;
-        moveCount.innerHTML = move;
+        move += 1; // Increment move
+        moveCount.innerHTML = move; // change innerHTML of moveCount element
         starScore();
     }
 
+    /**
+     * Function to decrese the number of stars
+     */
     function starScore() {
         myStar = stars.children;
-        if ((move % 10 === 0) && (myStar.length > 1)) {
+        if ((move % 10 === 0) && (myStar.length > 1)) { // Decrese the number of stars as the moveCount exceeds 10.
             stars.removeChild(myStar[myStar.length - 1]);
         }
     }
@@ -189,7 +212,10 @@ function setupClicks() {
         }
         return time;
     }
-
+    /**
+     * Function to start counting time
+     * credit lynda.com https://www.lynda.com/JavaScript-tutorials/Build-count-up-timer/574716/612077-4.html
+     */
     function runTimer() {
         var currentTime = leadingZero(timer[0]) + ":" + leadingZero(timer[1]) + ":" + leadingZero(timer[2]);
         theTimer.innerHTML = currentTime;
@@ -201,17 +227,21 @@ function setupClicks() {
     }
     interval = setInterval(runTimer, 10);
 }
-
+/**
+ * Function to creat stars
+ */
 function createStar() {
-    stars.innerHTML = '';
-    for (var i = 0; i < 3; i++) {
+    stars.innerHTML = ''; // clear stars
+    for (var i = 0; i < 3; i++) { // Create stars HTML string
         var star = document.createElement('li');
         star.innerHTML = '<i class="fa fa-star"></i>';
         stars.appendChild(star);
     }
 }
-
-function restart() {
+/**
+ * Function to reset a game
+ */
+function reset() {
     deck.innerHTML = "";
     cards = [];
     openCardList = [];
@@ -223,6 +253,7 @@ function restart() {
     createStar();
 }
 
+// Click event for restart button
 restartBtn.addEventListener("click", function() {
     swal({
         title: "Restart the game",
@@ -232,10 +263,12 @@ restartBtn.addEventListener("click", function() {
         allowOutsideClick: false
     }).then(function() {
         clearInterval(interval);
-        restart();
+        reset();
     });
 });
-
+/**
+ * Function to initialize the game
+ */
 function initGame() {
     displayCards();
     setupClicks();
