@@ -24,20 +24,33 @@ The game board consists of 16 "cards" organized in a grid. The deck is made of e
 **1.** Clone this repo:
 
 ```
-git clone https://github.com/musaab-abdalla/frontend-nanodegree-memory-game
+git clone https://github.com/musaab-abdalla/frontend-nanodegree-memory-game.git
 ```
 
-**2.** Serve the application:
+**2.** Gulp Installation:
 
-Install **Gulp** based tool and workflow `package.json`. Change directories to your folder
+To use Gulp, you need to install it as a global module first throught `npm`
 ```
-cd /yourfiles/
+sudo npm install --global gulp
 ```
-
-
-**3.** Open the application:
-
-To start the game, run
+Now download Gulp and its plugins to your project. I will specify the plugins we're about to use in `package.json`:
+```
+"devDependencies": {
+        "browser-sync": "^2.21.0",
+        "gulp": "^3.9.1",
+        "gulp-concat": "^2.6.1",
+        "gulp-sass": "^3.1.0"
+    },
+    "dependencies": {
+        "animate.css": "^3.5.2",
+        "sweetalert2": "^7.1.2"
+    }
+```
+Now install the dependencies by running:
+```
+npm install
+```
+To run the task open the terminal, navigate to the root of the project and run `gulp` command and task name as a parameter, like this:
 ```
 gulp
 ```
